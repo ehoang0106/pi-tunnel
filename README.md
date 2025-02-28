@@ -51,7 +51,10 @@ sudo systemctl start cloud
 ```
 
 
-
+```
+cloudflared access ssh --hostname khoah.com
+ssh pi@pi
+```
 
 
 
