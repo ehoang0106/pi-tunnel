@@ -60,9 +60,7 @@ ssh pi@pi
 ```
 
 
-
-
-
+ssh -o ProxyCommand="cloudflared access ssh --hostname pi4.khoah.com" username@pi4.khoah.com
 
 
 
