@@ -29,7 +29,7 @@ sudo nano /etc/cloudflared/config.yml
 
 add following content:
 
-tunnel: [TUNNEL NAME]
+tunnel: pi-tunnel
 credentials-file: /etc/cloudflared/credentials.json
 
 ingress:
@@ -48,6 +48,9 @@ cloudflared tunnel route dns [tunnel name] ssh.example.com
 sudo cloudflared service install
 sudo systemctl enable cloudflared
 sudo systemctl start cloud
+
+sudo cloudflared --config ~/.cloudflared/config.yml service install
+
 ```
 
 
