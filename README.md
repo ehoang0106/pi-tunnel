@@ -1,67 +1,132 @@
-```js
-- install cloudflared:
+# SSH to Raspberry Pi from anywhere using Cloudflared Tunnel
 
+![alt text](/media/image-4.png)
+
+# Prerequisite
+
+- Cloudflare account with Zero Trust
+- Custom domain
+- Raspberry Pi with SSH enabled
+
+## 1. Setting up Cloudflare Account
+### 1.1. Change nameserver to Cloudflare
+Make sure you change your nameserver and delete any existing nameserver:
+```
+owen.ns.cloudflare.com
+```
+```
+owen.ns.cloudflare.com
+```
+
+### 1.2. Connect your domain to Cloudflare
+Go to: [https://dash.cloudflare.com/](https://dash.cloudflare.com/) then add your domain. 
+
+Your domain won't be actived if the nameserver is not change to Cloudflare.
+
+For more details, Cloudflare docs [here](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/get-started/create-remote-tunnel/).
+
+## 2. Install Cloudflared on Raspberry Pi
+
+```bash
 sudo mkdir -p --mode=0755 /usr/share/keyrings
+```
+
+```bash
 curl -fsSL https://pkg.cloudflare.com/cloudflare-main.gpg | sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+```
 
+```bash
 echo "deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main" | sudo tee /etc/apt/sources.list.d/cloudflared.list
+```
 
+```bash
 sudo apt-get update && sudo apt-get install cloudflared
+```
 
-- login to tunnel:
+Check if `cloudflared` has been installed:
+```bash
+cloudflared --version
+```
 
- cloudflared tunnel login
+## 3. Login to Cloudflared Tunnel
 
-- create tunnel:
- 
- cloudflared tunnel create [TUNNEL-NAME]
+```bash
+cloudflared tunnel login
+```
 
-this will output tunnel ID and create a credentials.json file (something it is a [TUNNEL_ID].json)
+Use the link cloudflared spit out on the terminal and login on web browser.
 
-- move the credentials file:
+![alt text](/media/image-1.png)
 
-sudo mkdir -p /etc/cloudflared
-sudo mv ~/.cloudflared/tunnel-credentials.json /etc/cloudflared/credentials.json
+## 4. Setting up Cloudflared Tunnel
 
-- create config file for tunnel:
+ ```bash
+cloudflared tunnel create [NAME_OF_YOUR_TUNNEL]
+ ```
 
-sudo nano /etc/cloudflared/config.yml
+Cloudflare will generate the `certificate.json` for the tunnel. We will need it later. Make sure to save the path of the cert.
 
-add following content:
+![alt text](/media/image-3.png)
 
-tunnel: pi-tunnel
-credentials-file: /etc/cloudflared/credentials.json
+Create a config file for tunnel:
+
+```bash
+sudo nano ~/.cloudflared/config.yml
+```
+
+```bash
+tunnel: [TUNNEL_ID]
+credentials-file: [PATH_OF_THE_CERT_ABOVE]
 
 ingress:
-	- hostname: ssh.example.com
+	- hostname: [your-subdomain].[your-domain] #pi4.khoah.com
 	  service: ssh://localhost:22
 	- service: http_status:404
+```
+Create DNS record on Cloudflare for the `hostname`
 
+```bash
+cloudflared tunnel route dns [TUNNEL_ID] [HOSTNAME]
+```
 
-- create dns record
+Start and run the tunnel as service
 
-cloudflared tunnel route dns [tunnel name] ssh.example.com
+```bash
+sudo cloudflared --config ~/.cloudflared/config.yml service install
+```
 
-
-- start and run tunnel as a service
-
-sudo cloudflared service install
+```bash
 sudo systemctl enable cloudflared
 sudo systemctl start cloud
-
-sudo cloudflared --config ~/.cloudflared/config.yml service install
-
 ```
 
+You can check the status of the tunnel and see if it is running in the Zero Trust Dashboard.
+
+`Zero Trust` > `Network` > `Tunnels`.
+
+Create Application on Cloudflare
+
+`Zero Trust` > `Access` > `Applications`.
+
+For the setting details, please follow the documents from Cloudflare [here](https://developers.cloudflare.com/cloudflare-one/applications/).
+
+Select `Add an application` > `Self-hosted`.
+
+Enter your Application name then select `Add public hostname`.
+
+Enter the `Subdomain` and `Domain` in the config. In this case, my hostname is pi4.khoah.com
+
+In the `Advanced setting (optional)` > `Browser rendering settings` > `SSH`.
+
+Now you can SSH to your Pi using web browser.
+
+If you don't want to use browser, you can install SSH on the remote client. 
+
+Then run: 
 
 ```
-cloudflared access ssh --hostname khoah.com
-ssh pi@pi
+ssh -o ProxyCommand="cloudflared access ssh --hostname [YOUR_DOMAIN]" username@your_domain
 ```
-
-
-ssh -o ProxyCommand="cloudflared access ssh --hostname pi4.khoah.com" username@pi4.khoah.com
-
 
 
 
