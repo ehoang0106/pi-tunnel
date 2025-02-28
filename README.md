@@ -58,7 +58,9 @@ Use the link cloudflared spit out on the terminal and login on web browser.
 
 ![alt text](/media/image-1.png)
 
-## 4. Setting up Cloudflared Tunnel
+## 4. Setting up Cloudflared Tunnel on Raspberry Pi
+
+### 4.1. Create Cloudflared tunnel:
 
  ```bash
 cloudflared tunnel create [NAME_OF_YOUR_TUNNEL]
@@ -68,7 +70,8 @@ Cloudflare will generate the `certificate.json` for the tunnel. We will need it 
 
 ![alt text](/media/image-3.png)
 
-Create a config file for tunnel:
+
+### 4.2. Create a config file for tunnel:
 
 ```bash
 sudo nano ~/.cloudflared/config.yml
@@ -83,7 +86,7 @@ ingress:
 	  service: ssh://localhost:22
 	- service: http_status:404
 ```
-Create DNS record on Cloudflare for the `hostname`
+### 4.3. Create DNS record on Cloudflare for the `hostname`:
 
 ```bash
 cloudflared tunnel route dns [TUNNEL_ID] [HOSTNAME]
@@ -104,19 +107,21 @@ You can check the status of the tunnel and see if it is running in the Zero Trus
 
 `Zero Trust` > `Network` > `Tunnels`.
 
-Create Application on Cloudflare
+## 5. Setting up Cloudflared Tunnel on Raspberry Pi
 
-`Zero Trust` > `Access` > `Applications`.
+1. Create Application on Cloudflare
 
-For the setting details, please follow the documents from Cloudflare [here](https://developers.cloudflare.com/cloudflare-one/applications/).
+    `Zero Trust` > `Access` > `Applications`.
 
-Select `Add an application` > `Self-hosted`.
+    For the setting details, please follow the documents from Cloudflare [here](https://developers.cloudflare.com/cloudflare-one/applications/).
 
-Enter your Application name then select `Add public hostname`.
+2. Select `Add an application` > `Self-hosted`.
 
-Enter the `Subdomain` and `Domain` in the config. In this case, my hostname is pi4.khoah.com
+3. Enter your Application name then select `Add public hostname`.
 
-In the `Advanced setting (optional)` > `Browser rendering settings` > `SSH`.
+4. Enter the `Subdomain` and `Domain` in the config. In this case, my hostname is pi4.khoah.com
+
+5. In the `Advanced setting (optional)` > `Browser rendering settings` > `SSH`.
 
 Now you can SSH to your Pi using web browser.
 
