@@ -120,6 +120,17 @@ In the `Advanced setting (optional)` > `Browser rendering settings` > `SSH`.
 
 Now you can SSH to your Pi using web browser.
 
+![alt text](/media/image-5.png)
+
+![alt text](/media/image-6.png)
+
+![alt text](/media/image-7.png)
+
+![alt text](/media/image-8.png)
+
+![alt text](/media/image-4.png)
+
+
 If you don't want to use browser, you can install SSH on the remote client. 
 
 Then run: 
