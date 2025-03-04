@@ -100,7 +100,7 @@ sudo cloudflared --config ~/.cloudflared/config.yml service install
 
 ```bash
 sudo systemctl enable cloudflared
-sudo systemctl start cloud
+sudo systemctl start cloudflared
 ```
 
 You can check the status of the tunnel and see if it is running in the Zero Trust Dashboard.
