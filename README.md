@@ -76,6 +76,37 @@ Cloudflare will generate the `certificate.json` for the tunnel. We will need it 
 ```bash
 sudo nano ~/.cloudflared/config.yml
 ```
+Within this file, you will want to type in the following lines and adjust them for your use case as you go.
+
+[TUNNELNAME] – Replace this value with the name of your tunnel.
+[USERNAME] – This value will need to be replaced with your user’s name.
+[UUID] – You will need to specify the UUID that you got back in step 5 of this section.
+[HOSTNAME] – Swap this value out with the domain name you are planning to utilize. For example, “test.pimylifeup.com“.
+[PORT] – Finally, replace “PORT” with the port you want accessible through the tunnel.
+[PROTOCOL] – This is the protocol you want tobe utilized for your service. In the case of a web server, you will want to use “http” or “https“.
+
+However, there are a few other options that you can utilize if the service you are using utilizes a different protocol.
+http – Forward HTTP requests through to the specified service.
+
+E.G., http://localhost:8080
+https – Forward HTTPS requests to the specified service
+
+E.G., https://localhost:8080
+unix – Same as HTTP but using a Unix Socket.
+
+E.G., unix:/home/example/exam.sock
+unix+tls – Same as HTTPS but utilizing a Unix socket.
+
+E.G., unix+tls:/home/example/exam.sock
+tcp – Proxy a service using the TCP protocol to a local service. (For example, a Minecraft server)
+
+E.G., tcp://localhost:25655
+ssh – Allows you to proxy an SSH connection to a local service.
+
+E.G., ssh://localhost:22
+rdp – Proxies a connection made using RDP to the specified service.
+
+E.G., rdp://localhost:338
 
 ```bash
 tunnel: [TUNNEL_ID]
