@@ -79,14 +79,16 @@ sudo nano ~/.cloudflared/config.yml
 Within this file, you will want to type in the following lines and adjust them for your use case as you go.
 
 [TUNNELNAME] – Replace this value with the name of your tunnel.
-[USERNAME] – This value will need to be replaced with your user’s name.
-[UUID] – You will need to specify the UUID that you got back in step 5 of this section.
-[HOSTNAME] – Swap this value out with the domain name you are planning to utilize. For example, “test.pimylifeup.com“.
-[PORT] – Finally, replace “PORT” with the port you want accessible through the tunnel.
-[PROTOCOL] – This is the protocol you want tobe utilized for your service. In the case of a web server, you will want to use “http” or “https“.
 
-However, there are a few other options that you can utilize if the service you are using utilizes a different protocol.
-http – Forward HTTP requests through to the specified service.
+[USERNAME] – This value will need to be replaced with your user’s name.
+
+[UUID] – You will need to specify the UUID that you got back in step 5 of this section.
+
+[HOSTNAME] – Swap this value out with the domain name you are planning to utilize. For example, “test.pimylifeup.com“.
+
+[PORT] – Finally, replace “PORT” with the port you want accessible through the tunnel.
+
+[PROTOCOL] – This is the protocol you want tobe utilized for your service. In the case of a web server, you will want to use “http” or “https“.
 
 E.G., http://localhost:8080
 https – Forward HTTPS requests to the specified service
