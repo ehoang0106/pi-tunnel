@@ -130,6 +130,11 @@ Start and run the tunnel as service
 ```bash
 sudo cloudflared --config ~/.cloudflared/config.yml service install
 ```
+To uninstall cloudflared service
+
+```bash
+sudo cloudflared service uninstall
+```
 
 ```bash
 sudo systemctl enable cloudflared
