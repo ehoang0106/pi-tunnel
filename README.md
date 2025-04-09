@@ -10,12 +10,13 @@
 
 ## 1. Setting up Cloudflare Account
 ### 1.1. Change nameserver to Cloudflare
-Make sure you change your nameserver and delete any existing nameserver:
+Make sure you change your nameserver and delete any existing nameserver. You can obtain the correct name server on Cloudflare dashboard.
+Example: 
 ```
 owen.ns.cloudflare.com
 ```
 ```
-owen.ns.cloudflare.com
+george.ns.cloudflare.com
 ```
 
 ### 1.2. Connect your domain to Cloudflare
