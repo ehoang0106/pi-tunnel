@@ -130,15 +130,15 @@ Start and run the tunnel as service
 ```bash
 sudo cloudflared --config ~/.cloudflared/config.yml service install
 ```
-To uninstall cloudflared service
-
-```bash
-sudo cloudflared service uninstall
-```
 
 ```bash
 sudo systemctl enable cloudflared
 sudo systemctl start cloudflared
+```
+To uninstall cloudflared service
+
+```bash
+sudo cloudflared service uninstall
 ```
 
 You can check the status of the tunnel and see if it is running in the Zero Trust Dashboard.
